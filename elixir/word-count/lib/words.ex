@@ -6,12 +6,11 @@ defmodule Words do
   """
   @spec count(String.t()) :: map
   def count(sentence) do
-    groups =
-      sentence
-      |> String.downcase()
-      |> String.split(~r/[^\pL-\d]+/u, trim: true)
-      |> Enum.group_by(& &1)
-
-    for {word, words} <- groups, into: %{}, do: {word, length(words)}
+    sentence
+    |> String.downcase()
+    |> String.split(~r/[^\pL-\d]+/u, trim: true)
+    |> Enum.reduce(%{}, fn word, acc ->
+      Map.update(acc, word, 1, &(&1 + 1))
+    end)
   end
 end
