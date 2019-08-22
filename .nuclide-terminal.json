@@ -1,0 +1,6 @@
+{
+  "command": [
+    "/opt/local/bin/zsh",
+    "--login"
+  ]
+}
