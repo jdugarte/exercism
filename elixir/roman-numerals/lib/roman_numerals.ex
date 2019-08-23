@@ -2,29 +2,31 @@ defmodule RomanNumerals do
   @doc """
   Convert the number to a roman number.
   """
+
+  @roman_to_numeral [
+    { "M",  1000 },
+    { "CM", 900 },
+    { "D",  500 },
+    { "CD", 400 },
+    { "C",  100 },
+    { "XC", 90 },
+    { "L",  50 },
+    { "XL", 40 },
+    { "X",  10 },
+    { "IX", 9 },
+    { "V",  5 },
+    { "IV", 4 },
+    { "I",  1 }
+  ]
+
   @spec numeral(pos_integer) :: String.t()
   def numeral(number) do
-    convert_to_roman(number, 0)
+    Enum.reduce(@roman_to_numeral, %{ number: number, roman: "" }, fn { letter, value }, data ->
+      times = div(data[:number], value)
+      %{
+        number: data[:number] - times * value,
+        roman:  data[:roman] <> String.duplicate(letter, times)
+      }
+    end)[:roman]
   end
-
-  defp convert_to_roman(0, _), do: ""
-
-  defp convert_to_roman(number, position) do
-    digit = rem(number, 10)
-    offset = position * 2
-
-    roman =
-      cond do
-        digit <= 3 -> unit_at(offset, digit)
-        digit == 4 -> unit_at(offset) <> unit_at(offset + 1)
-        digit <= 8 -> unit_at(offset + 1) <> unit_at(offset, digit - 5)
-        digit == 9 -> unit_at(offset) <> unit_at(offset + 2)
-      end
-
-    convert_to_roman(div(number, 10), position + 1) <> roman
-  end
-
-  @romans ~w[ I V X L C D M ]
-
-  defp unit_at(offset, times \\ 1), do: @romans |> Enum.at(offset) |> String.duplicate(times)
 end
