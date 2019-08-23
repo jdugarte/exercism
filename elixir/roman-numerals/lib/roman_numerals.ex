@@ -20,13 +20,11 @@ defmodule RomanNumerals do
   ]
 
   @spec numeral(pos_integer) :: String.t()
-  def numeral(number) do
-    Enum.reduce(@roman_to_numeral, %{ number: number, roman: "" }, fn { letter, value }, data ->
-      times = div(data[:number], value)
-      %{
-        number: data[:number] - times * value,
-        roman:  data[:roman] <> String.duplicate(letter, times)
-      }
-    end)[:roman]
+  def numeral(number), do: to_roman(number, @roman_to_numeral)
+
+  defp to_roman(0, _), do: ""
+  defp to_roman(number, [ { letter, value } | tail ]) do
+    times = div(number, value)
+    String.duplicate(letter, times) <> to_roman(number - times * value, tail)
   end
 end
