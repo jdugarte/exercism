@@ -1,11 +1,28 @@
 defmodule Bob do
+
+  @spec hey(String.t()) :: String.t()
   def hey(input) do
     cond do
-      String.trim(input) == "" -> "Fine. Be that way!"
-      input =~ ~r/[\p{Lu}\p{Lt}]\?+$/u -> "Calm down, I know what I'm doing!"
-      String.ends_with?(input, "?") -> "Sure."
-      input =~ ~r/[\p{Lu}\p{Lt}](1|!)*$/u -> "Whoa, chill out!"
-      true -> "Whatever."
+      String.trim(input) == "" ->
+        "Fine. Be that way!"
+
+      upcase?(input) ->
+        if String.ends_with?(input, "?") do
+          "Calm down, I know what I'm doing!"
+        else
+          "Whoa, chill out!"
+        end
+
+      String.ends_with?(input, "?") ->
+        "Sure."
+
+      true ->
+        "Whatever."
     end
   end
+
+  defp upcase?(string) do
+    string == String.upcase(string) && string != String.downcase(string)
+  end
+
 end
