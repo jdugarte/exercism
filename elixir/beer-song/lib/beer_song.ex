@@ -27,12 +27,10 @@ defmodule BeerSong do
 
   def verse(number) do
     """
-    #{bottles(number)} of beer on the wall, #{bottles(number)} of beer.
-    Take one down and pass it around, #{bottles(number - 1)} of beer on the wall.
+    #{number} bottles of beer on the wall, #{number} bottles of beer.
+    Take one down and pass it around, #{number - 1} bottles of beer on the wall.
     """
   end
-
-  defp bottles(count), do: "#{count} bottles"
 
   @doc """
   Get the entire beer song for a given range of numbers of bottles.
