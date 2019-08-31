@@ -2,7 +2,6 @@
 package isogram
 
 import (
-	"strings"
 	"unicode"
 )
 
@@ -12,7 +11,8 @@ type register map[rune]checked
 // IsIsogram returns true if a word or phrase is an isogram
 func IsIsogram(input string) bool {
 	chars := register{}
-	for _, char := range strings.ToLower(input) {
+	for _, char := range input {
+		char = unicode.ToLower(char)
 		if unicode.IsLetter(char) {
 			if _, exists := chars[char]; exists {
 				return false
