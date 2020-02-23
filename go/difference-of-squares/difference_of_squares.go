@@ -8,8 +8,7 @@ func SquareOfSum(n int) (sum int) {
 
 // SumOfSquares returns the sum of the squares of the first N natural numbers
 func SumOfSquares(n int) int {
-	nf := float64(n)
-	return int((nf*nf*nf)/3 + (nf*nf)/2 + nf/6)
+	return (n * (n + 1) * (2*n + 1)) / 6
 }
 
 // Difference returns the difference between the square of the sum and the sum of the squares of the first N natural numbers
