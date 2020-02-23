@@ -3,7 +3,10 @@ package diffsquares
 import "testing"
 
 var tests = []struct{ n, sqOfSum, sumOfSq int }{
+	{3, 36, 14},
+	{4, 100, 30},
 	{5, 225, 55},
+	{6, 441, 91},
 	{10, 3025, 385},
 	{100, 25502500, 338350},
 }
